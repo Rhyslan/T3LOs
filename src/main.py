@@ -73,8 +73,7 @@ async def run_task(interaction: discord.Interaction):
 
             client.task_start = datetime.datetime.now()
             client.task_end = client.task_start + datetime.timedelta(minutes=1)
-            #client.task_id = random.randint(0, 2)
-            client.task_id = 0
+            client.task_id = random.randint(0, 2)
             client.current_task = task_list.loc[client.task_id]
             if DEBUG: print(f"Task {client.task_id} was chosen")
 
@@ -89,7 +88,8 @@ async def run_task(interaction: discord.Interaction):
                 for player in client.players:
                     player[1] = False
                     await player[0].send(
-                        f"{client.current_task["Task Description"]} Respond <t:{round(client.task_end.timestamp())}:R>")
+                        f"{client.current_task["Task Description"]} Respond <t:{round(client.task_end.timestamp())}:R>",
+                        delete_after=60.0)
                     if DEBUG: print(f"Sent to {player[0].name}")
 
             await interaction.response.send_message("Tasks have been sent", ephemeral=True)
@@ -103,14 +103,15 @@ async def on_message(message):
         return
 
     if not message.guild:
-        if datetime.datetime.now() < client.task_end:
-            if client.current_task["Answer"].lower() in message.content.lower():
-                await message.channel.send("Correct")
-                client.players = [[player[0], True] if player[0] == message.author else player for player in client.players]
-            else:
-                await message.channel.send("Incorrect")
-        else:
-            await message.channel.send("The task has already ended")
+        async for message in message.channel.history(limit=2):
+            if message.author == client.user:
+                if message.content.startswith(f"{client.current_task['Task Description']}"):
+                    if client.current_task["Answer"].lower() in message.content.lower():
+                        await message.channel.send("Correct")
+                        client.players = [[player[0], True] if player[0] == message.author else player for player in
+                                          client.players]
+                    else:
+                        await message.channel.send("Incorrect")
 
 #toggle random tasks
 
