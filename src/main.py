@@ -3,19 +3,18 @@
 # Created: 14/03/2026
 # Description: Main bot script
 
+import csv
+import datetime
 import logging
 import random
 from pathlib import Path
 
-import datetime
 import discord
 import joblib
-import pandas as pd
 from discord import app_commands
 
 from data.secrets import TOKEN, MY_GUILD
-
-import csv
+import data.message_segments as msg_seg
 
 BASE_DIR = Path(__file__).resolve().parent
 DEBUG = True
@@ -55,41 +54,48 @@ async def on_ready():
     print(f"Logged in as {client.user} (ID: {client.user.id})")
     print("------")
 
-@client.tree.command(name="join_game", description="Add yourself to the list of players")
+@client.tree.command(name="join_game")
 async def join_game(interaction: discord.Interaction):
     """
     Only add user as play if they aren't already
     """
     if not [x for x in client.players if x["user"] == interaction.user]:
         client.players.append({"user": interaction.user, "answered?": False})
-        await interaction.response.send_message(f"You have successfully been added to the list of players!", ephemeral=True)
-    else:
-        await interaction.response.send_message(f"You are already a player", ephemeral=True)
+        await interaction.response.send_message("""SLEEPER ENJOINED. AWAIT INSTRUCTION
 
-@client.tree.command(name="leave_game", description="Remove yourself to the list of players")
+-# Why is it we spend a third of our lives vulnerable, mimicking death? What function could it have served in the ancient past? Did some horror once stalk the dark, taking those who witnessed it?"""
+                                                , ephemeral=True)
+    else:
+        await interaction.response.send_message("SLEEPER ALREADY ENJOINED. **PLEASE** AWAIT INSTRUCTION", ephemeral=True)
+
+@client.tree.command(name="leave_game")
 async def leave_game(interaction: discord.Interaction):
     """
     Only remove user from players if they aren't already
     """
     if [x for x in client.players if x["user"] == interaction.user]:
         client.players = [x for x in client.players if x["user"] != interaction.user]
-        await interaction.response.send_message(f"You have successfully been removed to the list of players!", ephemeral=True)
-    else:
-        await interaction.response.send_message(f"You are not currently a player", ephemeral=True)
+        await interaction.response.send_message("""SLEEPER VITALS LOST. ERASING RECORD...
+DONE.
 
-@client.tree.command(name="run_task", description="Let admins run a task now")
+-# Is it better to suffer in truth, or thrive in ignorance?"""
+                                                , ephemeral=True)
+    else:
+        await interaction.response.send_message("SLEEPER NOT FOUND", ephemeral=True)
+
+@client.tree.command(name="run_task", description="ADMIN ONLY")
 async def run_task(interaction: discord.Interaction):
     """
     Select new random task and send to all players
     """
     if len(client.players) <= 0:
-        await interaction.response.send_message("There are no players", ephemeral=True)
+        await interaction.response.send_message("NO AGENTS FOUND", ephemeral=True)
         return
 
     try:
         # Only run if user is admin
         if [interaction.user.id, interaction.user.name] not in client.admins:
-            await interaction.response.send_message("Only app admins can run this command", ephemeral=True)
+            await interaction.response.send_message("INSUFFICIENT PERMISSIONS. THIS ATTEMPT WILL BE REPORTED. FURTHER ATTEMPTS MAY RESULT IN ~~**[REDACTED]**~~", ephemeral=True)
         else:
             await interaction.response.defer(ephemeral=True)
 
@@ -103,25 +109,40 @@ async def run_task(interaction: discord.Interaction):
                 client.current_task = random.choice(client.available_tasks)
                 client.available_tasks = [item for item in client.available_tasks if item != client.current_task]
 
-            if DEBUG: print(f"Task {client.current_task} was chosen")
-
-            if client.current_task["Has File"] == "true":
-                for player in client.players:
-                    player["answered?"] = False
-                    due_time = datetime.datetime.now() + datetime.timedelta(minutes=1)
-                    await player["user"].send(
-                        f"{client.current_task["Task Description"]} Respond <t:{round(due_time.timestamp())}:R>",
-                        file=discord.File(str(BASE_DIR) + "/" + client.current_task["File Path"]),
-                        delete_after=60.0)
-                    if DEBUG: print(f"Sent task {client.task_id} to {player["user"].name}")
-            else:
-                for player in client.players:
-                    player["answered?"] = False
-                    due_time = datetime.datetime.now() + datetime.timedelta(minutes=1)
-                    await player["user"].send(
-                        f"{client.current_task["Task Description"]} Respond <t:{round(due_time.timestamp())}:R>",
-                        delete_after=60.0)
-                    if DEBUG: print(f"Sent task {client.task_id} to {player["user"].name}")
+            match client.current_task["Task Type"]:
+                case "hid_img":
+                    for player in client.players:
+                        player["answered?"] = False
+                        due_time = datetime.datetime.now() + datetime.timedelta(minutes=1)
+                        await player["user"].send(
+                            f"{msg_seg.hid_img_intro.replace("[time]", f"<t:{round(due_time.timestamp())}:R>")}",
+                            file=discord.File(str(BASE_DIR) + "/" + client.current_task["File Path"]),
+                            delete_after=60.0)
+                case "triv":
+                    for player in client.players:
+                        player["answered?"] = False
+                        due_time = datetime.datetime.now() + datetime.timedelta(minutes=1)
+                        await player["user"].send(
+                            f"{msg_seg.triv_intro.replace("[time]", f"<t:{round(due_time.timestamp())}:R>")
+                                .replace("[question]", client.current_task["Task Question"])}",
+                            delete_after=60.0)
+                case "hid_snd":
+                    for player in client.players:
+                        player["answered?"] = False
+                        due_time = datetime.datetime.now() + datetime.timedelta(minutes=1)
+                        await player["user"].send(
+                            f"{msg_seg.hid_snd_intro.replace("[time]", f"<t:{round(due_time.timestamp())}:R>")}",
+                            file=discord.File(str(BASE_DIR) + "/" + client.current_task["File Path"]),
+                            delete_after=60.0)
+                case "mys":
+                    print("not done yet")
+                    #for player in client.players:
+                    #    player["answered?"] = False
+                    #    due_time = datetime.datetime.now() + datetime.timedelta(minutes=1)
+                    #    await player["user"].send(
+                    #        f"{msg_seg.mys_intro.replace("[time]", f"<t:{round(due_time.timestamp())}:R>")}",
+                    #        file=discord.File(str(BASE_DIR) + "/" + client.current_task["File Path"]),
+                    #        delete_after=60.0)
 
             await interaction.followup.send("Tasks have been sent", ephemeral=True)
     except Exception as e:
