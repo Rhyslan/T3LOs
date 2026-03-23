@@ -1,4 +1,11 @@
 Task Description,Has File,File Path,Answer
-What year did George Washington die?,false,,1799
-What game is this from?,true,data/images/task1.jpg,Xenoblade Chronicles 1
-What song is this?,true,data/audio/task2.mp3,The Only Thing They Fear is You
+Whats word?,true,data/images/1.jpg,DESOLATE
+Whats word?,true,data/images/2.jpg,EXILED
+Whats word?,true,data/images/3.jpg,DECAYED
+Whats word?,true,data/images/4.jpg,PRESSURE
+Whats word?,true,data/images/5.jpg,OTHERWORLD
+"Who is the author of ""The Art of War""?",false,,Sun Tzu
+Who painted the Mona Lisa?,false,,Leonardo Da Vinci
+What is the name of the largest ocean on earth?,false,,Pacific Ocean
+What is the elemental symbol of Copper?,false,,Cu
+What company produces the most tires in the world?,false,,Lego
