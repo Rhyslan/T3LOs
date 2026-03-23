@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5735756a-69fe-4655-ab40-e9cd79f25dc7" name="Changes" comment="" />
+    <list default="true" id="5735756a-69fe-4655-ab40-e9cd79f25dc7" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/data/message_segments.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/audio/task2.mp3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/tasks.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/tasks.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -23,12 +30,12 @@
     &quot;assignee&quot;: &quot;Rhyslan&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Rhyslan/MinuteMaster.git",
-    "accountId": "f513da80-9e48-42fe-95f7-6a167ebdc122"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Rhyslan/MinuteMaster.git&quot;,
+    &quot;accountId&quot;: &quot;f513da80-9e48-42fe-95f7-6a167ebdc122&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
 }</component>
@@ -48,6 +55,7 @@
     "Python.clear_all_command.executor": "Run",
     "Python.csv test.executor": "Run",
     "Python.main.executor": "Run",
+    "Python.test.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
@@ -62,7 +70,7 @@
       <recent name="C:\Users\dylan\Programming\Discord Taskmaster\src\data" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.main">
+  <component name="RunManager">
     <configuration name="add_admin" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="MinuteMaster" />
       <option name="ENV_FILES" value="" />
