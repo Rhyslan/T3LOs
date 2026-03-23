@@ -13,8 +13,8 @@ import discord
 import joblib
 from discord import app_commands
 
-from data.secrets import TOKEN, MY_GUILD
 import data.message_segments as msg_seg
+from data.secrets import TOKEN, MY_GUILD
 
 BASE_DIR = Path(__file__).resolve().parent
 DEBUG = True
@@ -158,13 +158,37 @@ async def on_message(message):
     if not message.guild:
         async for old_msg in message.channel.history(limit=2):
             if old_msg.author == client.user:
-                if old_msg.content.startswith(f"{client.current_task['Task Description']}"):
+                if old_msg.content.startswith("---BEGIN TRANSMISSION---"):
                     if client.current_task["Answer"].lower() in message.content.lower():
-                        await message.channel.send("Correct", delete_after=60.0)
+                        resp = "Correct"
+                        match client.current_task["Task Type"]:
+                            case "hid_img":
+                                resp = msg_seg.hid_img_corr
+                            case "triv":
+                                resp = msg_seg.triv_corr
+                            case "hid_snd":
+                                resp = msg_seg.hid_snd_corr
+                            case "mys":
+                                resp = msg_seg.mys_corr
+
+                        resp = resp.replace("[muse]", random.choice(msg_seg.musings))
+                        await message.channel.send(resp, delete_after=60.0)
                         client.players = [{"user": player["user"], "answered?": True}
                                           if player["user"] == message.author else player for player in client.players]
                     else:
-                        await message.channel.send("Incorrect", delete_after=60.0)
+                        resp = "Incorrect"
+                        match client.current_task["Task Type"]:
+                            case "hid_img":
+                                resp = msg_seg.hid_img_incorr
+                            case "triv":
+                                resp = msg_seg.triv_incorr
+                            case "hid_snd":
+                                resp = msg_seg.hid_snd_incorr
+                            case "mys":
+                                resp = msg_seg.mys_incorr
+
+                        resp = resp.replace("[muse]", "")
+                        await message.channel.send(resp, delete_after=60.0)
 
 #toggle random tasks
 
@@ -176,12 +200,12 @@ async def help_message(interaction: discord.Interaction):
                                             "Tasks may be sent at any time, so be ready.",
                                             ephemeral=True)
 
-@client.tree.command(name="view_players", description="Let admins view current player list")
+@client.tree.command(name="view_players", description="ADMINS ONLY")
 async def view_players(interaction: discord.Interaction):
     if [interaction.user.id, interaction.user.name] in client.admins:
         await interaction.response.send_message(client.players, ephemeral=True)
     else:
-        await interaction.response.send_message("Only app admins can run this command", ephemeral=True)
+        await interaction.response.send_message("INSUFFICIENT PERMISSIONS. THIS ATTEMPT WILL BE REPORTED. FURTHER ATTEMPTS MAY RESULT IN ~~**[REDACTED]**~~", ephemeral=True)
 
 if __name__ == "__main__":
     client.run(TOKEN, log_handler=handler)

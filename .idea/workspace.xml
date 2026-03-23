@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5735756a-69fe-4655-ab40-e9cd79f25dc7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/data/message_segments.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/data/audio/task2.mp3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/data/tasks.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/tasks.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/message_segments.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/message_segments.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -70,7 +67,7 @@
       <recent name="C:\Users\dylan\Programming\Discord Taskmaster\src\data" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Python.main">
     <configuration name="add_admin" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="MinuteMaster" />
       <option name="ENV_FILES" value="" />
