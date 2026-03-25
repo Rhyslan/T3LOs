@@ -9,11 +9,11 @@ triv,,mona lisa?,Leonardo Da Vinci
 triv,,oceas?,Pacific Ocean
 triv,,copper?,Cu
 triv,,tires?,Lego
-hid_snd,data/audio/snd1.mp3,,1
-hid_snd,data/audio/snd1.mp3,,1
-hid_snd,data/audio/snd1.mp3,,1
-hid_snd,data/audio/snd1.mp3,,1
-hid_snd,data/audio/snd1.mp3,,1
+hid_snd,data/audio/snd1.mp3,,wheel
+hid_snd,data/audio/snd1.mp3,,table
+hid_snd,data/audio/snd1.mp3,,speaker
+hid_snd,data/audio/snd1.mp3,,whiteboard
+hid_snd,data/audio/snd1.mp3,,console
 mys,,,2
 mys,,,2
 mys,,,2
