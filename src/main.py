@@ -144,13 +144,13 @@ async def run_task(interaction: discord.Interaction):
                             delete_after=60.0)
                 case "mys":
                     print("not done yet")
-                    #for player in client.players:
-                    #    player["answered?"] = False
-                    #    due_time = datetime.datetime.now() + datetime.timedelta(minutes=1)
-                    #    await player["user"].send(
-                    #        f"{msg_seg.mys_intro.replace("[time]", f"<t:{round(due_time.timestamp())}:R>")}",
-                    #        file=discord.File(str(BASE_DIR) + "/" + client.current_task["File Path"]),
-                    #        delete_after=60.0)
+                    for player in client.players:
+                        player["answered?"] = False
+                        due_time = datetime.datetime.now() + datetime.timedelta(minutes=1)
+                        await player["user"].send(
+                            f"{msg_seg.mys_intro.replace("[time]", f"<t:{round(due_time.timestamp())}:R>")}",
+                            file=discord.File(str(BASE_DIR) + "/" + client.current_task["File Path"]),
+                            delete_after=60.0)
 
             await interaction.followup.send("Tasks have been sent", ephemeral=True)
     except Exception as e:
@@ -181,6 +181,8 @@ async def on_message(message):
 
                         resp = resp.replace("[muse]", random.choice(msg_seg.musings))
                         next_code_part = next(item for item in client.players if item["user"] == message.author)["code_part"]
+                        if next_code_part > len(client.split_code) - 1:
+                            next_code_part = len(client.split_code) - 1
                         resp = resp.replace("[index]", str(next_code_part) + ": ").replace("[code]", client.split_code[next_code_part])
 
                         await message.channel.send(resp, delete_after=300.0)
