@@ -12,6 +12,7 @@ FAILURE TO RESPOND WITHIN TIME WILL RESULT IN **~~[REDACTED]~~**"""
 
 hid_img_corr = """-# MESSAGE RECEIVED
 ANSWER CORRECT. THANK YOU
+[index][code]
 ---END TRANSMISSION---
 
 [muse]"""
@@ -32,6 +33,7 @@ FAILURE TO RESPOND WITHIN TIME WILL RESULT IN **~~[REDACTED]~~**
 
 triv_corr = """-# MESSAGE RECEIVED
 SUFFICIENTLY CORRECT. THANK YOU
+[index][code]
 ---END TRANSMISSION---
 
 [muse]"""
@@ -51,6 +53,7 @@ FAILURE TO RESPOND WITHIN TIME WILL RESULT IN **~~[REDACTED]~~**"""
 
 hid_snd_corr = """-# MESSAGE RECEIVED
 ANSWER CORRECT. THANK YOU
+[index][code]
 ---END TRANSMISSION---
 
 [muse]"""
@@ -70,6 +73,7 @@ FAILURE TO RESPOND WITHIN TIME WILL RESULT IN **~~[REDACTED]~~**"""
 
 mys_corr = """-# MESSAGE RECEIVED
 ANSWER CORRECT. THANK YOU
+[index][code]
 ---END TRANSMISSION---
 
 [muse]"""
@@ -90,3 +94,7 @@ musings = ["-# What is reality? Objective truth? Perception? A relentless pursui
            "-# The longer I am awake, the more I yearn to sleep.",
            "-# When the end arrives, what will happen? Will we be taken somewhere? Or will we cease to be?",
            "-# If neurons make up the 'mind', then can other things substitute? Could circuits be such a substitute?"]
+
+# ------------------------------------
+# Reward
+

@@ -7,7 +7,9 @@ import csv
 import datetime
 import logging
 import random
+import re
 from pathlib import Path
+import base64
 
 import discord
 import joblib
@@ -22,7 +24,7 @@ DEBUG = True
 handler = logging.FileHandler(filename="discord.log", encoding="utf-8", mode="w")
 
 class MinuteMaster(discord.Client):
-    def __init__(self, *, intents: discord.Intents, task_list):
+    def __init__(self, *, intents: discord.Intents, task_list, code, encoded_code):
         super().__init__(intents=intents)
         self.tree = app_commands.CommandTree(self)
         try:
@@ -37,6 +39,11 @@ class MinuteMaster(discord.Client):
         self.task_id = 0
         self.current_task = None
 
+        self.code = code
+        self.chunk_size = 8
+        self.split_code = re.findall(".{1," + str(self.chunk_size) + "}", str(encoded_code))
+        self.awaiting_code = False
+
     async def setup_hook(self):
         self.tree.copy_global_to(guild=discord.Object(id=MY_GUILD))
         await self.tree.sync(guild=discord.Object(id=MY_GUILD))
@@ -46,7 +53,9 @@ intents = discord.Intents.default()
 intents.message_content = True
 tasks_file = open("data/tasks.csv")
 csv_reader = csv.DictReader(tasks_file)
-client = MinuteMaster(intents=intents, task_list=list(csv_reader))
+reward_code = "1234567890"
+encoded_code = "MTIzNDU2Nzg5MA=="
+client = MinuteMaster(intents=intents, task_list=list(csv_reader), code=reward_code, encoded_code=encoded_code)
 tasks_file.close()
 
 @client.event
@@ -60,7 +69,7 @@ async def join_game(interaction: discord.Interaction):
     Only add user as play if they aren't already
     """
     if not [x for x in client.players if x["user"] == interaction.user]:
-        client.players.append({"user": interaction.user, "answered?": False})
+        client.players.append({"user": interaction.user, "answered?": False, "code_part": 0})
         await interaction.response.send_message("""SLEEPER ENJOINED. AWAIT INSTRUCTION
 
 -# Why is it we spend a third of our lives vulnerable, mimicking death? What function could it have served in the ancient past? Did some horror once stalk the dark, taking those who witnessed it?"""
@@ -172,8 +181,11 @@ async def on_message(message):
                                 resp = msg_seg.mys_corr
 
                         resp = resp.replace("[muse]", random.choice(msg_seg.musings))
-                        await message.channel.send(resp, delete_after=60.0)
-                        client.players = [{"user": player["user"], "answered?": True}
+                        next_code_part = next(item for item in client.players if item["user"] == message.author)["code_part"]
+                        resp = resp.replace("[index]", str(next_code_part) + ": ").replace("[code]", client.split_code[next_code_part])
+
+                        await message.channel.send(resp, delete_after=300.0)
+                        client.players = [{"user": player["user"], "answered?": True, "code_part": player["code_part"] + 1}
                                           if player["user"] == message.author else player for player in client.players]
                     else:
                         resp = "Incorrect"
@@ -189,10 +201,19 @@ async def on_message(message):
 
                         resp = resp.replace("[muse]", "")
                         await message.channel.send(resp, delete_after=60.0)
+    else:
+        if client.awaiting_code:
+            if message.content == client.code:
+                await message.delete()
+                await message.author.send("reward", delete_after=60.0, silent=True)
+            client.awaiting_code = False
 
-#toggle random tasks
+@client.tree.context_menu(name="Enter Code")
+async def enter_code(interaction: discord.Interaction, member: discord.Member):
+    if member.id == client.user.id:
+        await interaction.response.send_message("ENTER CODE:", ephemeral=True)
+        client.awaiting_code = True
 
-#help
 @client.tree.command(name="help")
 async def help_message(interaction: discord.Interaction):
     await interaction.response.send_message("This game requires players to respond to tasks within 1 minute of receiving them.\n" +
