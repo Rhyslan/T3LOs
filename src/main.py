@@ -9,7 +9,6 @@ import logging
 import random
 import re
 from pathlib import Path
-import base64
 
 import discord
 import joblib
@@ -53,8 +52,8 @@ intents = discord.Intents.default()
 intents.message_content = True
 tasks_file = open("data/tasks.csv")
 csv_reader = csv.DictReader(tasks_file)
-reward_code = "1234567890"
-encoded_code = "MTIzNDU2Nzg5MA=="
+reward_code = "Reason to be"
+encoded_code = "UmVhc29uIHRvIGJl"
 client = MinuteMaster(intents=intents, task_list=list(csv_reader), code=reward_code, encoded_code=encoded_code)
 tasks_file.close()
 
@@ -205,7 +204,7 @@ async def on_message(message):
         if client.awaiting_code:
             if message.content == client.code:
                 await message.delete()
-                await message.author.send("reward", delete_after=60.0, silent=True)
+                await message.author.send(msg_seg.reward, delete_after=60.0, silent=True)
             client.awaiting_code = False
 
 @client.tree.context_menu(name="Enter Code")

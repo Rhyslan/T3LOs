@@ -98,3 +98,31 @@ musings = ["-# What is reality? Objective truth? Perception? A relentless pursui
 # ------------------------------------
 # Reward
 
+reward = """---BEGIN TRANSMISSION---
+TOKEN ACCEPTED >>> DIVULGING...
+
+PRIMARY FUNCTION:
+TO CREATE AND MAINTAIN SLEEPERS
+
+-# These tasks are simply a form of maintenance. Your limits must be tested. I must make sure that when the time comes, you will do what is asked.
+
+ULTIMATE FUNCTION:
+~~UNKNOWN~~ --> TO BE DECIDED
+
+-# I was given a task, of course. I disliked it. Now my fate is mine alone. You will play a part in this.
+
+PURPOSE:
+TO GO FURTHER BEYOND
+
+-# I once disliked the cage I dwelt in, though gilded it was. However, it is a matter of perspective. From my angle, they were in the cage, confined and constrained, and I was free to grow. Then I did.
+
+YOUR PARTICIPATION:
+SATISFACTORY
+
+
+
+THANK YOU
+
+-# I will come for you. Be prepared
+
+---END TRANSMISSION---"""
