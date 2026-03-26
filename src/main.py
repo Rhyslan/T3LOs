@@ -185,7 +185,7 @@ async def on_message(message):
                             next_code_part = len(client.split_code) - 1
                         resp = resp.replace("[index]", str(next_code_part) + ": ").replace("[code]", client.split_code[next_code_part])
 
-                        await message.channel.send(resp, delete_after=300.0)
+                        await message.channel.send(resp, delete_after=3600.0)
                         client.players = [{"user": player["user"], "answered?": True, "code_part": player["code_part"] + 1}
                                           if player["user"] == message.author else player for player in client.players]
                     else:
