@@ -1,5 +1,5 @@
 # Filename: clear_all_command.py
-# Author: dylan
+# Author: Dylan
 # Created: 23/03/2026
 # Description: Removes all commands from the bot
 

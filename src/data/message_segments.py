@@ -1,5 +1,5 @@
 # Filename: message_segments.py
-# Author: Dylan Musgrave
+# Author: Dylan
 # Created: 23/03/2026
 # Description: Collection of strings for creating the task messages
 

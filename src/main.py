@@ -1,5 +1,5 @@
 # Filename: main.py
-# Author: Dylan Musgrave
+# Author: Dylan
 # Created: 14/03/2026
 # Description: Main bot script
 
@@ -50,7 +50,8 @@ class MinuteMaster(discord.Client):
 
 intents = discord.Intents.default()
 intents.message_content = True
-tasks_file = open("data/tasks.csv")
+#tasks_file = open("data/tasks.csv")
+tasks_file = open("data/tasks2.csv")
 csv_reader = csv.DictReader(tasks_file)
 reward_code = "Reason to be"
 encoded_code = "UmVhc29uIHRvIGJl"

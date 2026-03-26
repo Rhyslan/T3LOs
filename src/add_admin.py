@@ -1,5 +1,5 @@
 # Filename: secrets.py
-# Author: Dylan Musgrave
+# Author: Dylan
 # Created: 14/03/2026
 # Description: Basic script to add new admin user to the bot
 
