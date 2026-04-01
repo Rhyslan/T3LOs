@@ -25,7 +25,7 @@ These slash commands are accessed in the server you add your bot and link the se
 | ``/leave_game`` | Removes you from the game |
 | ``/run_task`` | Admins only: sends out a task to all current players. |
 | ``/help`` | Displays a help message describing the game |
-| ``/view_players`` | Admins only: Displays a list of all the current players. Currently doesn't work with large player counts. |
+| ``/view_players`` | Admins only: Displays a list of all the current players. <br> Currently doesn't work with large player counts. |
 
 ## Reward System
 When a player correctly responds to a task, they receive a section of a code. Once they receive all the parts of the code (only indicated by receiving the same part twice in a row), they need to combine all the parts of a code, then use a base64 decoder to get the original phrase. Then, they need to access the context menu of the T3LOs bot (specifically from the bot's profile) and use the ``Enter Code`` command, following the bot's prompt with the decoded code. If the code is correct, the bot will DM the player the reward message.
