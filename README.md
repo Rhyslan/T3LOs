@@ -6,7 +6,7 @@ A discord app game where players receive random tasks and have 1 minute to respo
 - Python 3.14
 - A Discord Developer account and application
 
-### Install and Useage
+### Install and Usage
 - Run ``pip install requirements.txt`` to install the dependencies
 - Create a file called ``secrets.py`` in the ``/src/data/`` folder and add the following to it:
   ```python
