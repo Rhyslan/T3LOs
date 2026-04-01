@@ -214,5 +214,6 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
-src/data/secrets.py
+/src/data/secrets.py
 /src/data/admins.pkl
+/.idea
