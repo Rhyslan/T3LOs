@@ -22,7 +22,7 @@ DEBUG = True
 
 handler = logging.FileHandler(filename="discord.log", encoding="utf-8", mode="w")
 
-class MinuteMaster(discord.Client):
+class Telos(discord.Client):
     def __init__(self, *, intents: discord.Intents, task_list, code, encoded_code):
         super().__init__(intents=intents)
         self.tree = app_commands.CommandTree(self)
@@ -54,7 +54,7 @@ tasks_file = open("data/tasks.csv")
 csv_reader = csv.DictReader(tasks_file)
 reward_code = "Reason to be"
 encoded_code = "UmVhc29uIHRvIGJl"
-client = MinuteMaster(intents=intents, task_list=list(csv_reader), code=reward_code, encoded_code=encoded_code)
+client = Telos(intents=intents, task_list=list(csv_reader), code=reward_code, encoded_code=encoded_code)
 tasks_file.close()
 
 @client.event
