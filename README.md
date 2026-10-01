@@ -22,7 +22,7 @@ This game was created for the Swinburne University of Technology unit GAM30006 -
     1. Go to [Discord Devloper Portal](https://discord.com/developers/home)
     2. Create a new application
     3. Go to the `Bot` tab and enable the `Message Content Intent` under `Privileged Gateway Intents`
-    4. Copy the bot token. <u>***DO NOT SHARE THIS WITH ANYONE!***</u>
+    4. Copy the bot token. <ins>***DO NOT SHARE THIS WITH ANYONE!***</ins>
     5. Go to the `OAuth2` tab
     6. Select the `bot` and `applications.commands` scopes
     7. Select the following Bot Permissions
@@ -49,8 +49,8 @@ After running and setting up the bot for the first time, select from the menu wh
 | `/join_game`    | Adds you to the game                                                                                                      |
 | `/leave_game`   | Removes you from the game                                                                                                 |
 | `/help`         | Displays a help message describing the game                                                                               |
-| `/run_task`     | <u>**Admins only**</u>: sends out a task to all current players.                                                          |
-| `/view_players` | <u>**Admins only**</u>: Displays a list of all the current players. <br> Currently doesn't work with large player counts. |
+| `/run_task`     | <ins>**Admins only**</ins>: sends out a task to all current players.                                                          |
+| `/view_players` | <ins>**Admins only**</ins>: Displays a list of all the current players. <br> Currently doesn't work with large player counts. |
 
 ## Gameplay
 When a task if run, every registered player is sent a DM by the bot containing a question and a remaining time. Players have the specified time to respond with the correct answer. When a correct answer is sent, the bot will respond with a success message. If the answer is incorrect, the bot will respond with a failure message. 
